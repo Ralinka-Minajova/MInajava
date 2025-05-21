@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Узнайте цену вашей кухни</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            color: #333;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 30px;
+        }
+        
+        .section {
+            margin-bottom: 25px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 20px;
+        }
+        
+        .section-title {
+            font-weight: bold;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+        
+        .options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .option {
+            background-color: #f5f5f5;
+            border: 1px solid #ddd;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .option:hover {
+            background-color: #e0e0e0;
+        }
+        
+        .option.selected {
+            background-color: #3498db;
+            color: white;
+            border-color: #2980b9;
+        }
+        
+        .area-options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .area-option {
+            display: flex;
+            align-items: center;
+        }
+        
+        .area-option input {
+            margin-right: 10px;
+        }
+        
+        .other-input {
+            margin-top: 10px;
+            display: none;
+        }
+        
+        .other-input input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        
+        .phone-section {
+            margin-top: 30px;
+        }
+        
+        .phone-input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        
+        .submit-btn {
+            background-color: #2ecc71;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            font-size: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.3s;
+        }
+        
+        .submit-btn:hover {
+            background-color: #27ae60;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        .thank-you {
+            text-align: center;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Узнайте цену вашей кухни</h1>
+    
+    <div class="section">
+        <div class="section-title">Стиль:</div>
+        <div class="options" id="style-options">
+            <div class="option" data-value="Классический">Классический</div>
+            <div class="option" data-value="Модерн">Модерн</div>
+            <div class="option" data-value="Скандинавский">Скандинавский</div>
+            <div class="option" data-value="Другое">Другое</div>
+        </div>
+        <div class="other-input" id="style-other-input">
+            <input type="text" placeholder="Укажите ваш стиль" id="style-other-text">
+        </div>
+    </div>
+    
+    <div class="section">
+        <div class="section-title">Форма:</div>
+        <div class="options" id="form-options">
+            <div class="option" data-value="Прямая">Прямая</div>
+            <div class="option" data-value="Угловая">Угловая</div>
+            <div class="option" data-value="П-образная">П-образная</div>
+            <div class="option" data-value="Островная">Островная</div>
+            <div class="option" data-value="С барной стойкой">С барной стойкой</div>
+            <div class="option" data-value="Другое">Другое</div>
+        </div>
+        <div class="other-input" id="form-other-input">
+            <input type="text" placeholder="Укажите форму" id="form-other-text">
+        </div>
+    </div>
+    
+    <div class="section">
+        <div class="section-title">Площадь кухни:</div>
+        <div class="area-options">
+            <label class="area-option">
+                <input type="radio" name="area" value="5"> До 5 м²
+            </label>
+            <label class="area-option">
+                <input type="radio" name="area" value="8"> До 8 м²
+            </label>
+            <label class="area-option">
+                <input type="radio" name="area" value="13"> До 13 м²
+            </label>
+            <label class="area-option">
+                <input type="radio" name="area" value="other"> Другое
+                <input type="text" class="other-input" id="area-other-text" placeholder="Укажите площадь" style="display: none;">
+            </label>
+        </div>
+    </div>
+    
+    <div class="phone-section">
+        <p>Оставьте свой номер телефона сейчас и наш дизайнер свяжется с Вами в ближайшее время!</p>
+        <input type="tel" class="phone-input" id="phone" placeholder="Номер телефона" required>
+        <button class="submit-btn" id="submit-btn">Рассчитать стоимость</button>
+    </div>
+    
+    <div class="thank-you hidden" id="thank-you">
+        <h2>Спасибо за вашу заявку!</h2>
+        <p>Наш дизайнер свяжется с вами в ближайшее время для расчета стоимости вашей кухни.</p>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Style selection
+            const styleOptions = document.querySelectorAll('#style-options .option');
+            const styleOtherInput = document.getElementById('style-other-input');
+            const styleOtherText = document.getElementById('style-other-text');
+            
+            styleOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    styleOptions.forEach(opt => opt.classList.remove('selected'));
+                    this.classList.add('selected');
+                    
+                    if (this.dataset.value === 'Другое') {
+                        styleOtherInput.style.display = 'block';
+                    } else {
+                        styleOtherInput.style.display = 'none';
+                    }
+                });
+            });
+            
+            // Form selection
+            const formOptions = document.querySelectorAll('#form-options .option');
+            const formOtherInput = document.getElementById('form-other-input');
+            const formOtherText = document.getElementById('form-other-text');
+            
+            formOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    formOptions.forEach(opt => opt.classList.remove('selected'));
+                    this.classList.add('selected');
+                    
+                    if (this.dataset.value === 'Другое') {
+                        formOtherInput.style.display = 'block';
+                    } else {
+                        formOtherInput.style.display = 'none';
+                    }
+                });
+            });
+            
+            // Area selection
+            const areaRadios = document.querySelectorAll('input[name="area"]');
+            const areaOtherText = document.getElementById('area-other-text');
+            
+            areaRadios.forEach(radio => {
+                radio.addEventListener('change', function() {
+                    if (this.value === 'other') {
+                        areaOtherText.style.display = 'inline-block';
+                    } else {
+                        areaOtherText.style.display = 'none';
+                    }
+                });
+            });
+            
+            // Form submission
+            const submitBtn = document.getElementById('submit-btn');
+            const phoneInput = document.getElementById('phone');
+            const thankYou = document.getElementById('thank-you');
+            
+            submitBtn.addEventListener('click', function() {
+                if (!phoneInput.value) {
+                    alert('Пожалуйста, введите ваш номер телефона');
+                    return;
+                }
+                
+                // Get selected values
+                const selectedStyle = document.querySelector('#style-options .selected');
+                const selectedForm = document.querySelector('#form-options .selected');
+                const selectedArea = document.querySelector('input[name="area"]:checked');
+                
+                if (!selectedStyle || !selectedForm || !selectedArea) {
+                    alert('Пожалуйста, заполните все поля');
+                    return;
+                }
+                
+                let styleValue = selectedStyle.dataset.value;
+                if (styleValue === 'Другое') {
+                    styleValue = styleOtherText.value || 'Другое (не указано)';
+                }
+                
+                let formValue = selectedForm.dataset.value;
+                if (formValue === 'Другое') {
+                    formValue = formOtherText.value || 'Другое (не указано)';
+                }
+                
+                let areaValue = selectedArea.value;
+                if (areaValue === 'other') {
+                    areaValue = areaOtherText.value || 'Другая (не указана)';
+                }
+                
+                // In a real application, you would send this data to the server
+                console.log('Форма отправлена:', {
+                    style: styleValue,
+                    form: formValue,
+                    area: areaValue,
+                    phone: phoneInput.value
+                });
+                
+                // Show thank you message
+                document.querySelector('h1').style.display = 'none';
+                document.querySelectorAll('.section').forEach(section => {
+                    section.style.display = 'none';
+                });
+                document.querySelector('.phone-section').style.display = 'none';
+                thankYou.classList.remove('hidden');
+            });
+        });
+    </script>
+</body>
+</html>

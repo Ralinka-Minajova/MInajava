@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Моя корзина</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        
+        h2 {
+            font-size: 18px;
+            margin: 15px 0;
+            color: #444;
+        }
+        
+        h3 {
+            font-size: 16px;
+            margin: 10px 0;
+            color: #555;
+        }
+        
+        .cart-container {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .cart-item {
+            border-bottom: 1px solid #eee;
+            padding: 15px 0;
+        }
+        
+        .product-title {
+            font-weight: bold;
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+        
+        .product-details {
+            display: flex;
+            flex-wrap: wrap;
+            margin-top: 10px;
+        }
+        
+        .detail-item {
+            display: flex;
+            align-items: center;
+            margin-right: 15px;
+            margin-bottom: 5px;
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .detail-item:before {
+            content: "●";
+            margin-right: 5px;
+            color: #999;
+        }
+        
+        .price {
+            font-weight: bold;
+            color: #333;
+            font-size: 18px;
+            margin-top: 10px;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+        
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+        
+        th {
+            color: #666;
+            font-weight: normal;
+        }
+        
+        .config-section {
+            margin: 15px 0;
+            padding-left: 15px;
+        }
+        
+        .config-title {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .config-option {
+            display: flex;
+            align-items: center;
+            margin: 5px 0;
+            color: #666;
+        }
+        
+        .config-option select {
+            margin-left: 10px;
+            padding: 5px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        
+        .total-section {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+            font-size: 18px;
+        }
+        
+        .total-label {
+            font-weight: bold;
+        }
+        
+        .total-price {
+            font-weight: bold;
+            color: #e53935;
+        }
+        
+        .checkout-btn {
+            background-color: #ff5722;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            width: 100%;
+            margin-top: 20px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .checkout-btn:hover {
+            background-color: #e64a19;
+        }
+        
+        .agreement {
+            font-size: 12px;
+            color: #666;
+            margin-top: 15px;
+            text-align: center;
+        }
+        
+        .quantity-control {
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+        }
+        
+        .quantity-btn {
+            width: 25px;
+            height: 25px;
+            background-color: #eee;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .quantity-input {
+            width: 40px;
+            text-align: center;
+            margin: 0 5px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 3px;
+        }
+      
+        
+    </style>
+</head>
+<body>
+    <div class="cart-container">
+        <h1>МОЯ КОРЗИНА</h1>
+        <h2>2 товара</h2>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>Тип</th>
+                    <th>Количество</th>
+                    <th>Сроки</th>
+                    <th>Цена</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Kugoo Kirin M4</strong></td>
+                    <td>
+                        <div class="quantity-control">
+                            <button class="quantity-btn">-</button>
+                            <input type="text" class="quantity-input" value="1">
+                            <button class="quantity-btn">+</button>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="detail-item">8 сегодня</div>
+                        <div class="detail-item">2 января</div>
+                    </td>
+                    <td>29 900 ₽</td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <div class="cart-item">
+            <!-- <img src="img/6865201260.jpg" alt=""> -->
+            <div class="product-title">Kugoo Kirin M4</div>
+            <div class="product-details">
+                <div class="detail-item">8 сегодня</div>
+                <div class="detail-item">2 января</div>
+            </div>
+            <div class="price">29 900 ₽</div>
+            
+            <div class="config-section">
+                <div class="config-title">Комплектация: стандартная</div>
+                <div class="config-option">
+                    Планировка указания:
+                    <select>
+                        <option>▼</option>
+                        <option>Вариант 1</option>
+                        <option>Вариант 2</option>
+                    </select>
+                </div>
+                <div class="config-option">Время: 1 год</div>
+            </div>
+            
+            <div class="config-section">
+                <div class="config-title">Тип типуемого целебного</div>
+                <div class="config-option">Для услуги: гидрохирургия</div>
+            </div>
+        </div>
+        
+        <div class="cart-item">
+            <!-- <img src="img/6865201260.jpg" alt=""> -->
+            <div class="product-title">Kugoo Kirin M4</div>
+            <div class="product-details">
+                <div class="detail-item">8 сегодня</div>
+                <div class="detail-item">2 января</div>
+            </div>
+            <div class="price">29 900 ₽</div>
+            
+            <div class="config-section">
+                <div class="config-title">Комплектация: стандартная</div>
+                <div class="config-option">
+                    Планировка указания:
+                    <select>
+                        <option>▼</option>
+                        <option>Вариант 1</option>
+                        <option>Вариант 2</option>
+                    </select>
+                </div>
+                <div class="config-option">Время: 1 год</div>
+            </div>
+            
+            <div class="config-section">
+                <div class="config-title">Тип типуемого целебного</div>
+                <div class="config-option">Для услуги: гидрохирургия</div>
+            </div>
+        </div>
+        
+        <div class="total-section">
+            <div class="total-label">Общая сумма:</div>
+            <div class="total-price">58 800 ₽</div>
+        </div>
+        
+        <button class="checkout-btn">Оформить заказ</button>
+        
+        <div class="agreement">
+            Нажимая на кнопку, вы соглашаетесь с условиями обработки персональных данных. 
+            Если вы не можете оформить документ, ответьте с предложением.
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Quantity controls
+            const quantityInputs = document.querySelectorAll('.quantity-input');
+            const minusBtns = document.querySelectorAll('.quantity-btn:first-child');
+            const plusBtns = document.querySelectorAll('.quantity-btn:last-child');
+            
+            minusBtns.forEach((btn, index) => {
+                btn.addEventListener('click', function() {
+                    let value = parseInt(quantityInputs[index].value);
+                    if (value > 1) {
+                        quantityInputs[index].value = value - 1;
+                        updateTotal();
+                    }
+                });
+            });
+            
+            plusBtns.forEach((btn, index) => {
+                btn.addEventListener('click', function() {
+                    let value = parseInt(quantityInputs[index].value);
+                    quantityInputs[index].value = value + 1;
+                    updateTotal();
+                });
+            });
+            
+            quantityInputs.forEach(input => {
+                input.addEventListener('change', function() {
+                    if (isNaN(this.value) this.value = 1;
+                    updateTotal();
+                });
+            });
+            
+            // Update total price
+            function updateTotal() {
+                let total = 0;
+                document.querySelectorAll('.cart-item').forEach((item, index) => {
+                    const priceText = item.querySelector('.price').textContent;
+                    const price = parseInt(priceText.replace(/\D/g, ''));
+                    const quantity = parseInt(quantityInputs[index].value);
+                    total += price * quantity;
+                });
+                
+                document.querySelector('.total-price').textContent = formatPrice(total) + ' ₽';
+            }
+            
+            // Format price with spaces
+            function formatPrice(price) {
+                return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+            }
+        });
+    </script>
+</body>
+</html>
